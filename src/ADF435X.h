@@ -59,7 +59,18 @@ void ADF435X::SetFreq(uint64_t freq_Hz)
 
 void ADF435X::SetOut(bool en)
 {
-
+  if (en == false){
+    WriteRegister(0x8C8414);
+    WriteRegister((uint32_t)(R1.Mod) << 3 | 0x8008001);
+    WriteRegister((uint32_t)(R0.Integer) << 15 | (uint32_t)(R0.Frac) << 3);
+    WriteRegister(0x580005);
+  }
+  else if (en == true){
+    WriteRegister((uint32_t)(R4.Div) << 20 | 0x819434);
+    WriteRegister((uint32_t)(R1.Mod) << 3 | 0x8008001);
+    WriteRegister((uint32_t)(R0.Integer) << 15 | (uint32_t)(R0.Frac) << 3);
+    WriteRegister(0x580005);
+  }
 }
 
 void ADF435X::WriteRegister(uint32_t data)
