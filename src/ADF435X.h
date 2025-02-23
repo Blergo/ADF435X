@@ -23,7 +23,6 @@ void ADF435X::Init(uint8_t LE, uint32_t Ref)
 	RefIn = Ref;
 	pinMode(pin_LE, OUTPUT);
 	SPI1.begin();
-//	SPI1.setDataMode(SPI_MODE0);
 	
 	WriteRegister(0x180005);
 	WriteRegister(0x19414);
