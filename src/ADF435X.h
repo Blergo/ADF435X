@@ -32,8 +32,8 @@ void ADF435X::Init(uint8_t LE, uint32_t Ref)
 	pin_LE = LE;
 	RefIn = Ref;
 	pinMode(pin_LE, OUTPUT);
-	SPI.begin();
-	SPI.setDataMode(SPI_MODE0);
+	SPI1.begin();
+	SPI1.setDataMode(SPI_MODE0);
 	
 	WriteRegister(0x180005);
 	WriteRegister(0x19414);
@@ -73,7 +73,7 @@ void ADF435X::WriteRegister(uint32_t data)
 	for(int i = 0; i < 4 ; i++)
 	{
 		uint8_t dataByte = data>>(8 * (3-i));
-		SPI.transfer(dataByte);
+		SPI1.transfer(dataByte);
 	}
 	digitalWrite(pin_LE, HIGH);
 }
