@@ -1,16 +1,6 @@
-/* Easy ADF435X Library
- *  
- *  Based on original class from Jan Swanepoel
- *  Modified and minimized by Sjef Verhoeven
- *  
- *  Stepsize = 100Hz
- *  RF output = 2dBm
- *  
- *  Created for 32 bit microcontrollers. On Arduino framework be aware of the 32bit variable limit.
- *  
-*/
-
 #include<SPI.h>
+
+SPISettings vfo(2000000, MSBFIRST, SPI_MODE0);
 
 class ADF435X
 {
@@ -33,7 +23,7 @@ void ADF435X::Init(uint8_t LE, uint32_t Ref)
 	RefIn = Ref;
 	pinMode(pin_LE, OUTPUT);
 	SPI1.begin();
-	SPI1.setDataMode(SPI_MODE0);
+//	SPI1.setDataMode(SPI_MODE0);
 	
 	WriteRegister(0x180005);
 	WriteRegister(0x19414);
@@ -69,6 +59,7 @@ void ADF435X::SetFreq(uint64_t freq_Hz)
 
 void ADF435X::WriteRegister(uint32_t data)
 {
+	SPI1.beginTransaction(vfo);
 	digitalWrite(pin_LE, LOW);
 	for(int i = 0; i < 4 ; i++)
 	{
@@ -76,4 +67,5 @@ void ADF435X::WriteRegister(uint32_t data)
 		SPI1.transfer(dataByte);
 	}
 	digitalWrite(pin_LE, HIGH);
+	SPI1.endTransaction();
 }
