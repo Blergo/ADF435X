@@ -7,6 +7,7 @@ class ADF435X
 	public:
 		void Init(uint8_t LE, uint32_t Ref);
 		void SetFreq(uint64_t freq_Hz);
+		void SetOut(bool en);
 				
 	private:
 		struct {uint16_t Integer;	uint16_t Frac;} R0;
