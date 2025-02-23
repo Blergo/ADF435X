@@ -56,7 +56,7 @@ void ADF435X::SetFreq(uint64_t freq_Hz)
   WriteRegister(0x580005);
 }
 
-voif ADF435X::SetOut(bool en)
+void ADF435X::SetOut(bool en)
 {
 
 }
